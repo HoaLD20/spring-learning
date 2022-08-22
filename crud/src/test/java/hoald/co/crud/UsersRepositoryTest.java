@@ -44,13 +44,25 @@ public class UsersRepositoryTest {
     public void updateUser(){
         Integer userId = 1;
         User optionalUser = repo.findById(userId).get();
-        optionalUser.setFirstname("hoa dep zai vl");
+        optionalUser.setFirstname("hoaleduc");
         repo.save(optionalUser);
-
         User userUpdate = repo.findById(userId).get();
-        Assertions.assertThat(userUpdate.getFirstname()).isEqualTo("hoa dep zai vl");
+        Assertions.assertThat(userUpdate.getFirstname()).isEqualTo("hoaleduc");
+    }
+    @Test
+    public void testGet(){
+        Integer id = 3;
+        Optional<User> userOptional = repo.findById(id);
+        Assertions.assertThat(userOptional).isPresent();
+        System.out.println(userOptional.get());
+    }
 
-
+    @Test
+    public void testDelete(){
+        Integer id = 3;
+        repo.deleteById(id);
+        Optional<User> userOptional = repo.findById(id);
+        Assertions.assertThat(userOptional).isNotPresent();
     }
 
 }
